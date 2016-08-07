@@ -4,9 +4,6 @@ overrides:
       mds:
         debug ms: 1
         debug mds: 20
-      client.0:
-        debug ms: 1
-        debug client: 20
-      client.1:
+      client:
         debug ms: 1
         debug client: 20

@@ -1,1 +1,10 @@
-../../../../overrides/whitelist_wrongly_marked_down.yaml
+overrides:
+  ceph:
+    log-whitelist:
+      - wrongly marked me down
+    conf:
+      mds:
+        debug mds: 20
+        debug ms: 1
+      client:
+        debug client: 10
