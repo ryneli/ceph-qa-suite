@@ -5,7 +5,6 @@ overrides:
         debug client: 1/20
         debug ms: 0/10
 tasks:
-- ceph-fuse:
 - workunit:
     clients:
       all:
