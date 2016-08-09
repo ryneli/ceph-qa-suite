@@ -3,5 +3,3 @@ overrides:
     conf:
       client:
         fuse default permissions: false
-tasks:
-- ceph-fuse:
