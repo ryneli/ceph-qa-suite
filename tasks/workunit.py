@@ -93,9 +93,9 @@ def task(ctx, config):
 
     created_mountpoint = {}
 
-    if config.get('python') is not None:
-        log.info('PYTHON: ' + str(config.get('python')))
-        assert config['python'] in (2, 3), 'python version specified is not valid'
+    py_version = config.get('python')
+    if py_version is not None:
+        assert py_version in (2, 3), 'Invalid Python version: {version}'.format(version=py_version)
 
     if config.get('env') is not None:
         assert isinstance(config['env'], dict), 'env must be a dictionary'
@@ -117,7 +117,7 @@ def task(ctx, config):
         for role, tests in clients.items():
             if role != "all":
                 p.spawn(_run_tests, ctx, refspec, role, tests,
-                        config.get('env'), config.get('python'), timeout=timeout)
+                        config.get('env'), py_version, timeout=timeout)
 
     # Clean up dirs from any non-all workunits
     for role, created in created_mountpoint.items():
@@ -127,7 +127,7 @@ def task(ctx, config):
     if 'all' in clients:
         all_tasks = clients["all"]
         _spawn_on_all_clients(ctx, refspec, all_tasks, config.get('env'),
-                              config.get('python'), config.get('subdir'),
+                              py_version, config.get('subdir'),
                               timeout=timeout)
 
 
@@ -256,7 +256,7 @@ def _make_scratch_dir(ctx, role, subdir):
     return created_mountpoint
 
 
-def _spawn_on_all_clients(ctx, refspec, tests, env, python, subdir, timeout=None):
+def _spawn_on_all_clients(ctx, refspec, tests, env, py_version, subdir, timeout=None):
     """
     Make a scratch directory for each client in the cluster, and then for each
     test spawn _run_tests() for each role.
@@ -275,7 +275,7 @@ def _spawn_on_all_clients(ctx, refspec, tests, env, python, subdir, timeout=None
     for unit in tests:
         with parallel() as p:
             for role, remote in client_remotes.items():
-                p.spawn(_run_tests, ctx, refspec, role, [unit], env, python, subdir,
+                p.spawn(_run_tests, ctx, refspec, role, [unit], env, py_version, subdir,
                         timeout=timeout)
 
     # cleanup the generated client directories
