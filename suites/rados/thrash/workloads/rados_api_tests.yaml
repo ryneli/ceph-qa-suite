@@ -13,4 +13,6 @@ tasks:
     clients:
       client.0:
         - rados/test.sh
-- interactive:
+- exec:
+    mon.a:
+      - sleep 3h
