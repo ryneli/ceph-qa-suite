@@ -128,8 +128,6 @@ class Thrasher:
                 """
                 print x
             self.log = tmp
-        if self.config is None:
-            self.config = dict()
         # prevent monitor from auto-marking things out while thrasher runs
         # try both old and new tell syntax, in case we are testing old code
         try:
