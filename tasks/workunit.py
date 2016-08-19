@@ -94,7 +94,8 @@ def task(ctx, config):
     created_mountpoint = {}
 
     if config.get('python') is not None:
-        assert config['python'] in ('2', '3'), 'python version specified is not valid'
+        log.info('PYTHON: ' + str(config.get('python')))
+        assert config['python'] in (2, 3), 'python version specified is not valid'
 
     if config.get('env') is not None:
         assert isinstance(config['env'], dict), 'env must be a dictionary'
