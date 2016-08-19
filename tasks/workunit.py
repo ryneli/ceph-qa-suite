@@ -96,6 +96,7 @@ def task(ctx, config):
     py_version = config.get('python')
     if py_version is not None:
         assert py_version in (2, 3), 'Invalid Python version: {version}'.format(version=py_version)
+        py_version = str(py_version)
 
     if config.get('env') is not None:
         assert isinstance(config['env'], dict), 'env must be a dictionary'
